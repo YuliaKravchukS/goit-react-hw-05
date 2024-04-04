@@ -19,10 +19,19 @@ export const requestMoviesByTittle = async (title = "") => {
   const { data } = await instance.get("/search/movie", {
     params: {
       title: title,
-      headers: {
-        accept: "application/json",
-        api_key: "bb8b95351575529e9a24eb6d6f09af6f",
-      },
+      accept: "application/json",
+      api_key: "bb8b95351575529e9a24eb6d6f09af6f",
+    },
+  });
+  console.log("data: ", data);
+  return data;
+};
+
+export const requestMoviesById = async (movieId) => {
+  const { data } = await instance.get(`/movie/${movieId}?language=en-US`, {
+    params: {
+      accept: "application/json",
+      api_key: "bb8b95351575529e9a24eb6d6f09af6f",
     },
   });
   console.log("data: ", data);
