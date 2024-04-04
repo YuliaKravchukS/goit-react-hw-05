@@ -1,11 +1,9 @@
 import MovieList from "../components/MovieList/MovieList";
+import { useSearchMovie } from "../hooks/useSearchMovie";
 
 const MoviesPage = () => {
-  return (
-    <>
-      <MovieList />
-    </>
-  );
+  const { movies } = useSearchMovie();
+  return <div>{movies && <MovieList movies={movies} />}</div>;
 };
 
 export default MoviesPage;

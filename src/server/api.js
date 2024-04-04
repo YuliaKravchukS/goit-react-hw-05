@@ -34,6 +34,34 @@ export const requestMoviesById = async (movieId) => {
       api_key: "bb8b95351575529e9a24eb6d6f09af6f",
     },
   });
-  console.log("data: ", data);
+
+  return data;
+};
+
+export const requestMoviesCast = async (movieId) => {
+  const { data } = await instance.get(
+    `/movie/${movieId}/credits?language=en-US`,
+    {
+      params: {
+        accept: "application/json",
+        api_key: "bb8b95351575529e9a24eb6d6f09af6f",
+      },
+    }
+  );
+
+  return data;
+};
+
+export const requestMovieReviews = async (movieId) => {
+  const { data } = await instance.get(
+    `/movie/${movieId}/reviews?language=en-US`,
+    {
+      params: {
+        accept: "application/json",
+        api_key: "bb8b95351575529e9a24eb6d6f09af6f",
+      },
+    }
+  );
+
   return data;
 };
