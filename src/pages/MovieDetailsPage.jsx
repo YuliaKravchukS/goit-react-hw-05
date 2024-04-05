@@ -7,10 +7,12 @@ import {
 } from "../server/api";
 import MovieCast from "../components/MovieCast/MovieCast";
 import MovieReviews from "../components/MovieReviews/MovieReviews";
+import Loader from "../components/Loader/Loader";
 
 const urlImg = "https://image.tmdb.org/t/p/w500";
 
 const MovieDetailsPage = () => {
+  const [isLoaderMoviePage, setIsLoaderMoviePage] = useState(false);
   const { movieId } = useParams();
   const [movieDetails, setMovieDetails] = useState(null);
   const [movieCast, setMovieCast] = useState(null);
@@ -19,10 +21,13 @@ const MovieDetailsPage = () => {
   useEffect(() => {
     async function fetchMovieDetails() {
       try {
+        setIsLoaderMoviePage(true);
         const dataById = await requestMoviesById(movieId);
         setMovieDetails(dataById);
       } catch (error) {
         console.log(error);
+      } finally {
+        setIsLoaderMoviePage(false);
       }
     }
 
@@ -32,11 +37,14 @@ const MovieDetailsPage = () => {
   useEffect(() => {
     async function fetchMovieCast() {
       try {
+        setIsLoaderMoviePage(true);
         const dataCast = await requestMoviesCast(movieId);
         console.log("dataCast: ", dataCast.cast);
         setMovieCast(dataCast.cast);
       } catch (error) {
         console.log(error);
+      } finally {
+        setIsLoaderMoviePage(false);
       }
     }
 
@@ -46,11 +54,14 @@ const MovieDetailsPage = () => {
   useEffect(() => {
     async function fetchMovieReviews() {
       try {
+        setIsLoaderMoviePage(true);
         const dataReviews = await requestMovieReviews(movieId);
         console.log("dataReviews: ", dataReviews.results);
         setMovieReviews(dataReviews.results);
       } catch (error) {
         console.log(error);
+      } finally {
+        setIsLoaderMoviePage(false);
       }
     }
 
@@ -92,6 +103,7 @@ const MovieDetailsPage = () => {
                 element={<MovieReviews movieReviews={movieReviews} />}
               />
             </Routes>
+            {isLoaderMoviePage && <Loader />}
           </div>
         </div>
       )}

@@ -4,9 +4,7 @@ const MovieReviews = ({ movieReviews }) => {
       {movieReviews.length !== 0 ? (
         movieReviews.map((review) => (
           <li key={review.id}>
-            <p>
-              `Author: <b>${review.author}</b>`
-            </p>
+            <p>{`Author: ${review.author}`}</p>
             <p>{review.content}</p>
           </li>
         ))
