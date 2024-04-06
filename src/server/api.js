@@ -26,7 +26,6 @@ export const requestMoviesByTittle = async (title = "") => {
       },
     }
   );
-  console.log("data: ", data);
   return data.results;
 };
 

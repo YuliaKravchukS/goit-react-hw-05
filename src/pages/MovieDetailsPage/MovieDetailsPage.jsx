@@ -1,14 +1,14 @@
-import { useEffect, useState } from "react";
-import { Link, Route, Routes, useParams } from "react-router-dom";
+import { useEffect, useRef, useState } from "react";
+import { Link, Route, Routes, useParams, useLocation } from "react-router-dom";
 import {
   requestMovieReviews,
   requestMoviesById,
   requestMoviesCast,
-} from "../server/api";
-import MovieCast from "../components/MovieCast/MovieCast";
-import MovieReviews from "../components/MovieReviews/MovieReviews";
-import Loader from "../components/Loader/Loader";
-
+} from "../../server/api";
+import MovieCast from "../../components/MovieCast/MovieCast";
+import MovieReviews from "../../components/MovieReviews/MovieReviews";
+import Loader from "../../components/Loader/Loader";
+import css from "./MovieDetailsPage.module.css";
 const urlImg = "https://image.tmdb.org/t/p/w500";
 
 const MovieDetailsPage = () => {
@@ -17,6 +17,8 @@ const MovieDetailsPage = () => {
   const [movieDetails, setMovieDetails] = useState(null);
   const [movieCast, setMovieCast] = useState(null);
   const [movieReviews, setMovieReviews] = useState(null);
+  const location = useLocation();
+  const [backLink, setBackLink] = useState(location.state ?? "/");
 
   useEffect(() => {
     async function fetchMovieDetails() {
@@ -39,7 +41,6 @@ const MovieDetailsPage = () => {
       try {
         setIsLoaderMoviePage(true);
         const dataCast = await requestMoviesCast(movieId);
-        console.log("dataCast: ", dataCast.cast);
         setMovieCast(dataCast.cast);
       } catch (error) {
         console.log(error);
@@ -56,7 +57,6 @@ const MovieDetailsPage = () => {
       try {
         setIsLoaderMoviePage(true);
         const dataReviews = await requestMovieReviews(movieId);
-        console.log("dataReviews: ", dataReviews.results);
         setMovieReviews(dataReviews.results);
       } catch (error) {
         console.log(error);
@@ -70,29 +70,45 @@ const MovieDetailsPage = () => {
 
   return (
     <div>
-      <Link to="/">Go back</Link>
+      <Link to={backLink}>Go back</Link>
       {movieDetails !== null && (
         <div>
-          <div>
-            <img
-              src={`${urlImg}${movieDetails.backdrop_path}`}
-              alt={movieDetails.original_title}
-            />
-            <h2>{movieDetails.title}</h2>
-            <span>{`User Score:${Math.round(
-              movieDetails.vote_average * 10
-            )}%`}</span>
-            <p>Overview</p>
-            <span>{movieDetails.overview}</span>
-            <p>Genres</p>
-            <span>
-              {movieDetails.genres.map((genre) => genre.name).join(" ")}
-            </span>
+          <div className={css.wrapCard}>
+            <div className={css.cardImg}>
+              <img
+                className={css.image}
+                src={`${urlImg}${movieDetails.backdrop_path}`}
+                alt={movieDetails.original_title}
+              />
+            </div>
+            <div className={css.cardDetails}>
+              <h2>{movieDetails.title}</h2>
+              <span>{`User Score:${Math.round(
+                movieDetails.vote_average * 10
+              )}%`}</span>
+              <p className={css.cardText}>
+                <b>Overview</b>
+              </p>
+              <span>{movieDetails.overview}</span>
+              <p className={css.cardText}>
+                <b>Genres</b>
+              </p>
+              <span>
+                {movieDetails.genres.map((genre) => genre.name).join(" ")}
+              </span>
+            </div>
           </div>
-          <div>
+          <div className={css.wrapAddInfo}>
             <p>Additional information</p>
-            <Link to="cast">Casts</Link>
-            <Link to="reviews">Reviews</Link>
+            <ul className={css.AddInfoList}>
+              <li>
+                {" "}
+                <Link to="cast">Casts</Link>
+              </li>
+              <li>
+                <Link to="reviews">Reviews</Link>
+              </li>
+            </ul>
             <Routes>
               <Route
                 path="cast"

@@ -1,6 +1,7 @@
 // import { useState } from "react";
 import { Suspense, lazy } from "react";
-import "./App.css";
+import clsx from "clsx";
+import css from "./App.module.css";
 import { Route, Routes } from "react-router-dom";
 import Loader from "./components/Loader/Loader";
 // import HomePage from "./pages/HomePage";
@@ -9,16 +10,18 @@ import Loader from "./components/Loader/Loader";
 // import NotFoundPage from "./pages/NotFoundPage";
 // import Navigation from "./pages/Navigation";
 
-const HomePage = lazy(() => import("./pages/HomePage"));
-const MoviesPage = lazy(() => import("./pages/MoviesPage"));
-const MovieDetailsPage = lazy(() => import("./pages/MovieDetailsPage"));
-const NotFoundPage = lazy(() => import("./pages/NotFoundPage"));
-const Navigation = lazy(() => import("./pages/Navigation"));
+const HomePage = lazy(() => import("./pages/HomePage/HomePage"));
+const MoviesPage = lazy(() => import("./pages/MoviesPage/MoviesPage"));
+const MovieDetailsPage = lazy(() =>
+  import("./pages/MovieDetailsPage/MovieDetailsPage")
+);
+const NotFoundPage = lazy(() => import("./pages/NotFoundPage/NotFoundPage"));
+const Navigation = lazy(() => import("./pages/Navigation/Navigation"));
 
 function App() {
   return (
     <>
-      <header>
+      <header className={css.header}>
         <Navigation />
       </header>
 

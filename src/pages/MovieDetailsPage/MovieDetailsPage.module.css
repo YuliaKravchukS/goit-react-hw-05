@@ -1,0 +1,31 @@
+.wrapCard {
+  display: flex;
+  align-items: start;
+  border-bottom: 1px solid gray;
+  height: 400px;
+  overflow: hidden;
+  gap: 15px;
+  padding: 5px;
+  margin-bottom: 10px;
+}
+
+.cardDetails {
+  flex: 1;
+  padding: 5px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.cardImg {
+  height: 100%;
+  max-width: 25%;
+}
+.image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.AddInfoList {
+  border-bottom: 1px solid gray;
+}

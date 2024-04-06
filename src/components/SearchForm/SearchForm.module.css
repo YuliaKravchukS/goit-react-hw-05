@@ -1,0 +1,32 @@
+.form {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+.searchInput {
+  outline: none;
+  height: 40px;
+  width: 275px;
+  box-sizing: border-box;
+  border-radius: 8px;
+  border: 1px solid darkgrey;
+  padding: 0 8px;
+}
+.searchBtn {
+  border: 1px solid darkgrey;
+  height: 40px;
+  border-radius: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100px;
+  padding: 5px;
+}
+
+.searchBtn:hover,
+.searchBtn:focus,
+.searchInput:hover,
+.searchInput:focus {
+  border: 1px solid rgb(12, 87, 153);
+  box-shadow: 3px 2px 6px 0px rgba(0, 0, 0, 0.75);
+}

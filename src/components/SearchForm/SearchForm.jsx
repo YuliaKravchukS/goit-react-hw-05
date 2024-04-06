@@ -1,14 +1,14 @@
 import * as Yup from "yup";
 import { ErrorMessage, Field, Form, Formik } from "formik";
+import css from "./SearchForm.module.css";
 
 const SearchSchema = Yup.object().shape({
-  searchInput: Yup.string().required("Required"),
+  searchInput: Yup.string(),
 });
 
 const SearchForm = ({ onSetSearchTitle }) => {
   const handleSubmit = (values) => {
     onSetSearchTitle(values.searchInput);
-    console.log("values.searchInput: ", values.searchInput);
   };
   return (
     <Formik
@@ -18,16 +18,19 @@ const SearchForm = ({ onSetSearchTitle }) => {
       onSubmit={handleSubmit}
       validationSchema={SearchSchema}
     >
-      <Form>
+      <Form className={css.form}>
         <label>
           <Field
+            className={css.searchInput}
             tupe="text"
             name="searchInput"
             placeholder="Enter search title..."
           ></Field>
           <ErrorMessage name="searchInput" component="span" />
         </label>
-        <button type="submit">Search 🔍</button>
+        <button className={css.searchBtn} type="submit">
+          Search 🔍
+        </button>
       </Form>
     </Formik>
   );
