@@ -1,6 +1,5 @@
 // import { useState } from "react";
 import { Suspense, lazy } from "react";
-import clsx from "clsx";
 import css from "./App.module.css";
 import { Route, Routes } from "react-router-dom";
 import Loader from "./components/Loader/Loader";
@@ -8,33 +7,40 @@ import Loader from "./components/Loader/Loader";
 // import MoviesPage from "./pages/MoviesPage";
 // import MovieDetailsPage from "./pages/MovieDetailsPage";
 // import NotFoundPage from "./pages/NotFoundPage";
-// import Navigation from "./pages/Navigation";
+import Navigation from "./components/Navigation/Navigation";
+// import MovieCast from "./components/MovieCast/MovieCast";
+// import MovieReviews from "./components/MovieReviews/MovieReviews";
 
 const HomePage = lazy(() => import("./pages/HomePage/HomePage"));
 const MoviesPage = lazy(() => import("./pages/MoviesPage/MoviesPage"));
 const MovieDetailsPage = lazy(() =>
   import("./pages/MovieDetailsPage/MovieDetailsPage")
 );
+const MovieCast = lazy(() => import("./components/MovieCast/MovieCast"));
+const MovieReviews = lazy(() =>
+  import("./components/MovieReviews/MovieReviews")
+);
 const NotFoundPage = lazy(() => import("./pages/NotFoundPage/NotFoundPage"));
-const Navigation = lazy(() => import("./pages/Navigation/Navigation"));
 
 function App() {
+  // const urlImg = "https://image.tmdb.org/t/p/w500";
   return (
     <>
       <header className={css.header}>
         <Navigation />
       </header>
 
-      <main>
-        <Suspense fallback={<Loader />}>
-          <Routes>
-            <Route path="/" element={<HomePage />} />
-            <Route path="/movies" element={<MoviesPage />} />
-            <Route path="/movies/:movieId/*" element={<MovieDetailsPage />} />
-            <Route path="*" element={<NotFoundPage />} />
-          </Routes>
-        </Suspense>
-      </main>
+      <Suspense fallback={<Loader />}>
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/movies" element={<MoviesPage />} />
+          <Route path="/movies/:movieId" element={<MovieDetailsPage />}>
+            <Route path="cast" element={<MovieCast />} />
+            <Route path="reviews" element={<MovieReviews />} />
+          </Route>
+          <Route path="*" element={<NotFoundPage />} />
+        </Routes>
+      </Suspense>
     </>
   );
 }

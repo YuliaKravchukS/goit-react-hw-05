@@ -41,6 +41,7 @@ export const requestMoviesById = async (movieId) => {
 };
 
 export const requestMoviesCast = async (movieId) => {
+  console.log("movieId: ", movieId);
   const { data } = await instance.get(
     `/movie/${movieId}/credits?language=en-US`,
     {

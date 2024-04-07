@@ -1,12 +1,10 @@
 import { useEffect, useRef, useState } from "react";
-import { Link, Route, Routes, useParams, useLocation } from "react-router-dom";
+import { Link, useParams, useLocation, Outlet } from "react-router-dom";
 import {
-  requestMovieReviews,
+  // requestMovieReviews,
   requestMoviesById,
-  requestMoviesCast,
+  // requestMoviesCast,
 } from "../../server/api";
-import MovieCast from "../../components/MovieCast/MovieCast";
-import MovieReviews from "../../components/MovieReviews/MovieReviews";
 import Loader from "../../components/Loader/Loader";
 import css from "./MovieDetailsPage.module.css";
 const urlImg = "https://image.tmdb.org/t/p/w500";
@@ -15,10 +13,10 @@ const MovieDetailsPage = () => {
   const [isLoaderMoviePage, setIsLoaderMoviePage] = useState(false);
   const { movieId } = useParams();
   const [movieDetails, setMovieDetails] = useState(null);
-  const [movieCast, setMovieCast] = useState(null);
-  const [movieReviews, setMovieReviews] = useState(null);
+  //const [movieCast, setMovieCast] = useState(null);
+  // const [movieReviews, setMovieReviews] = useState(null);
   const location = useLocation();
-  const [backLink, setBackLink] = useState(location.state ?? "/");
+  const backLink = useRef(location.state ?? "/");
 
   useEffect(() => {
     async function fetchMovieDetails() {
@@ -36,41 +34,41 @@ const MovieDetailsPage = () => {
     fetchMovieDetails();
   }, [movieId]);
 
-  useEffect(() => {
-    async function fetchMovieCast() {
-      try {
-        setIsLoaderMoviePage(true);
-        const dataCast = await requestMoviesCast(movieId);
-        setMovieCast(dataCast.cast);
-      } catch (error) {
-        console.log(error);
-      } finally {
-        setIsLoaderMoviePage(false);
-      }
-    }
+  // useEffect(() => {
+  //   async function fetchMovieCast() {
+  //     try {
+  //       setIsLoaderMoviePage(true);
+  //       const dataCast = await requestMoviesCast(movieId);
+  //       setMovieCast(dataCast.cast);
+  //     } catch (error) {
+  //       console.log(error);
+  //     } finally {
+  //       setIsLoaderMoviePage(false);
+  //     }
+  //   }
 
-    fetchMovieCast();
-  }, [movieId]);
+  //   fetchMovieCast();
+  // }, [movieId]);
 
-  useEffect(() => {
-    async function fetchMovieReviews() {
-      try {
-        setIsLoaderMoviePage(true);
-        const dataReviews = await requestMovieReviews(movieId);
-        setMovieReviews(dataReviews.results);
-      } catch (error) {
-        console.log(error);
-      } finally {
-        setIsLoaderMoviePage(false);
-      }
-    }
+  // useEffect(() => {
+  //   async function fetchMovieReviews() {
+  //     try {
+  //       setIsLoaderMoviePage(true);
+  //       const dataReviews = await requestMovieReviews(movieId);
+  //       setMovieReviews(dataReviews.results);
+  //     } catch (error) {
+  //       console.log(error);
+  //     } finally {
+  //       setIsLoaderMoviePage(false);
+  //     }
+  //   }
 
-    fetchMovieReviews();
-  }, [movieId]);
+  //   fetchMovieReviews();
+  // }, [movieId]);
 
   return (
     <div>
-      <Link to={backLink}>Go back</Link>
+      <Link to={backLink.current}>Go back</Link>
       {movieDetails !== null && (
         <div>
           <div className={css.wrapCard}>
@@ -102,25 +100,16 @@ const MovieDetailsPage = () => {
             <p>Additional information</p>
             <ul className={css.AddInfoList}>
               <li>
-                {" "}
                 <Link to="cast">Casts</Link>
               </li>
               <li>
                 <Link to="reviews">Reviews</Link>
               </li>
             </ul>
-            <Routes>
-              <Route
-                path="cast"
-                element={<MovieCast movieCast={movieCast} urlImg={urlImg} />}
-              />
-              <Route
-                path="reviews"
-                element={<MovieReviews movieReviews={movieReviews} />}
-              />
-            </Routes>
-            {isLoaderMoviePage && <Loader />}
+            <Outlet />
           </div>
+
+          {isLoaderMoviePage && <Loader />}
         </div>
       )}
     </div>
