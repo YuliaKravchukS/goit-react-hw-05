@@ -1,8 +1,56 @@
-.image {
-  width: 150px;
+.wrapImage {
   height: 150px;
+  width: 100%;
+}
+
+.image {
+  width: 100%;
+  height: 100%;
   object-fit: cover;
 }
-li {
-  margin-bottom: 10px;
+.link {
+  height: 200px;
+  border: 1px solid black;
+  width: calc((100% - 5px * 3) / 4);
+}
+.list {
+  display: flex;
+  gap: 5px;
+  list-style: none;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+}
+.description {
+  background-color: rgb(176, 174, 171);
+  height: 50px;
+  width: 100%;
+  text-align: center;
+  color: blue;
+}
+
+@media screen and (min-width: 768px) {
+  .link {
+    width: calc((100% - 16px * 3) / 4);
+    height: 270px;
+  }
+  .wrapImage {
+    height: 200px;
+  }
+
+  .description {
+    height: 70px;
+  }
+}
+@media screen and (min-width: 1100px) {
+  .link {
+    width: calc((100% - 20px * 4) / 5);
+  }
+}
+@media screen and (min-width: 1440px) {
+  .link {
+    width: calc((100% - 20px * 5) / 6);
+  }
 }

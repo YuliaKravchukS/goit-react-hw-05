@@ -29,19 +29,27 @@ const MovieCast = () => {
   }, [movieId]);
   return (
     <>
-      <ul>
+      <ul className={css.list}>
         {movieCast &&
-          movieCast.map((cast) => (
-            <li key={cast.id} className={css.li}>
-              <img
-                className={css.image}
-                src={`${urlImg}${cast.profile_path}`}
-                alt={cast.name}
-              />
-              <p>{cast.name}</p>
-              <p>{`Character:${cast.character}`}</p>
-            </li>
-          ))}
+          movieCast
+            .filter((cast) => cast.profile_path !== null)
+            .map((cast) => (
+              <li key={cast.id} className={css.link}>
+                <div className={css.wrapImage}>
+                  <img
+                    className={css.image}
+                    src={`${urlImg}${cast.profile_path}`}
+                    alt={cast.name}
+                  />
+                </div>
+                <div className={css.description}>
+                  <p>
+                    <b>{cast.name}</b>
+                  </p>
+                  <p>{`Character: "${cast.character}"`}</p>
+                </div>
+              </li>
+            ))}
       </ul>
       {isLoaderMoviePage && <Loader />}
     </>

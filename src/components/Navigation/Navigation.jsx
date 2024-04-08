@@ -3,9 +3,7 @@ import css from "./Navigation.module.css";
 import clsx from "clsx";
 
 const getNavLinkClassName = ({ isActive }) =>
-  clsx({
-    [css.active]: isActive,
-  });
+  clsx(css.navLink, { [css.active]: isActive });
 
 const Navigation = () => {
   return (

@@ -24,8 +24,9 @@ const NotFoundPage = lazy(() => import("./pages/NotFoundPage/NotFoundPage"));
 
 function App() {
   // const urlImg = "https://image.tmdb.org/t/p/w500";
+  const backgroundImg = "./assets/bcg.jpg";
   return (
-    <>
+    <div style={{ backgroundImage: `url(${backgroundImg})` }}>
       <header className={css.header}>
         <Navigation />
       </header>
@@ -41,7 +42,7 @@ function App() {
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </Suspense>
-    </>
+    </div>
   );
 }
 

@@ -30,6 +30,8 @@ body {
   min-height: 100vh;
   padding: 15px;
   box-sizing: border-box;
+  background-image: url("./assets/bcg.jpg");
+  background-size: cover;
 }
 
 h1 {
@@ -63,7 +65,7 @@ button:focus-visible {
 
 @media (prefers-color-scheme: light) {
   :root {
-    color: #213547;
+    color: #5ca4e3;
     background-color: #ffffff;
   }
   a:hover {

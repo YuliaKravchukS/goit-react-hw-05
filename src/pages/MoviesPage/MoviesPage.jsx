@@ -10,6 +10,7 @@ const MoviesPage = () => {
   return (
     <div>
       <SearchForm onSetSearchTitle={onSetSearchTitle} />
+
       {movies && <MovieList movies={movies} />}
       {isLoader && <Loader />}
     </div>

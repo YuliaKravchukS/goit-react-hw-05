@@ -8,7 +8,7 @@ const HomePage = () => {
     isSearchPage: false,
   });
   return (
-    <div>
+    <div className={css.HomePage}>
       <h1 className={css.text}>Trending today</h1>
       {movies && <MovieList movies={movies} />}
       {isLoader && <Loader />}
