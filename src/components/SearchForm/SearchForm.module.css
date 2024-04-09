@@ -23,6 +23,7 @@
   align-items: center;
   width: 100px;
   padding: 5px;
+  color: rgb(15, 15, 54);
 }
 
 .searchBtn:hover,

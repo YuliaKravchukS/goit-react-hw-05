@@ -11,7 +11,7 @@
   border-top-right-radius: 10px;
 }
 .link {
-  height: 200px;
+  height: 270px;
   border: 1px solid black;
   width: calc((100% - 5px * 3) / 4);
 }
@@ -27,23 +27,28 @@
 }
 .description {
   background-color: rgb(176, 174, 171, 0.5);
-  height: 30px;
+  height: 120px;
   width: 100%;
   text-align: center;
   color: rgb(15, 15, 54);
+  font-size: 12px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 @media screen and (min-width: 768px) {
   .link {
     width: calc((100% - 16px * 3) / 4);
-    height: 270px;
+    height: 300px;
   }
   .wrapImage {
     height: 200px;
   }
 
   .description {
-    height: 70px;
+    height: 100px;
+    font-size: 14px;
   }
 }
 @media screen and (min-width: 1100px) {
