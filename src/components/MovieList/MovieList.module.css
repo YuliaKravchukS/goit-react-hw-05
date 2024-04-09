@@ -10,7 +10,7 @@
 }
 .wrap {
   width: 100%;
-  height: 450px;
+  height: 550px;
   position: relative;
 }
 .wrap:hover {
@@ -57,11 +57,11 @@
   .link {
     width: calc((100% - 16px * 2) / 3);
   }
+  .wrap {
+    height: 400px;
+  }
 }
 @media screen and (min-width: 1100px) {
-  ul {
-    gap: 20px;
-  }
   .link {
     width: calc((100% - 20px * 3) / 4);
   }
