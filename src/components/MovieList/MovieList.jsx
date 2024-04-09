@@ -3,6 +3,7 @@ import css from "./MovieList.module.css";
 import { IoIosPeople } from "react-icons/io";
 import { FaGrinStars } from "react-icons/fa";
 import { BsCalendarDateFill } from "react-icons/bs";
+import noPostrerUrl from "../../assets/noposter.png";
 
 const MovieList = ({ movies }) => {
   const location = useLocation();
@@ -19,8 +20,9 @@ const MovieList = ({ movies }) => {
                     src={
                       movie.poster_path !== null
                         ? `https://image.tmdb.org/t/p/w500${movie.poster_path}`
-                        : "../../assets/noposter.png"
+                        : `${noPostrerUrl}`
                     }
+                    width="150"
                     alt={movie.title}
                     className={css.image}
                   />
@@ -31,17 +33,17 @@ const MovieList = ({ movies }) => {
                     </p> */}
                   <div className={css.addInfo}>
                     <span aria-label="vote_average" title="vote_average">
-                      <FaGrinStars />
+                      <FaGrinStars className={css.icon} />
                       {movie.vote_average.toFixed(1)}
                     </span>
 
                     <span aria-label="release_date" title="release_date">
-                      <BsCalendarDateFill />
+                      <BsCalendarDateFill className={css.icon} />
                       {movie.release_date}
                     </span>
 
                     <span aria-label="vote_count" title="vote_count">
-                      <IoIosPeople />
+                      <IoIosPeople className={css.icon} />
                       {movie.vote_count}
                     </span>
                   </div>
