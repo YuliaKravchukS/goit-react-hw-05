@@ -7,6 +7,8 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
 }
 .link {
   height: 200px;
@@ -24,11 +26,11 @@
   padding: 0;
 }
 .description {
-  background-color: rgb(176, 174, 171);
-  height: 50px;
+  background-color: rgb(176, 174, 171, 0.5);
+  height: 30px;
   width: 100%;
   text-align: center;
-  color: blue;
+  color: rgb(15, 15, 54);
 }
 
 @media screen and (min-width: 768px) {

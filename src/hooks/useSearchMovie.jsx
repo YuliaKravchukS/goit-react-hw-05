@@ -4,21 +4,21 @@ import { useSearchParams } from "react-router-dom";
 
 export const useSearchMovie = ({ isSearchPage = false }) => {
   // const [title, setTitle] = useState("");
-  const [movies, setMovies] = useState(null);
+  const [movies, setMovies] = useState([]);
   const [isLoader, setIsLoader] = useState(false);
   const [searchParams, setSearchParams] = useSearchParams();
   const title = searchParams.get("title");
-
+  const [page, setPage] = useState(1);
+  const [showBtn, setShowBtn] = useState(false);
+  //moviesData
   useEffect(() => {
     if (isSearchPage) return;
     async function fetchMovieTrend() {
       try {
         setIsLoader(true);
-        const moviesData = await requestMoviesTrend();
-
-        setMovies(
-          moviesData.toSorted((a, b) => a.title.localeCompare(b.title))
-        );
+        const { total_pages, results } = await requestMoviesTrend(page);
+        setMovies((prevMovies) => [...prevMovies, ...results]);
+        setShowBtn(total_pages > page);
       } catch (error) {
         console.log(error);
       } finally {
@@ -26,7 +26,10 @@ export const useSearchMovie = ({ isSearchPage = false }) => {
       }
     }
     fetchMovieTrend();
-  }, [isSearchPage]);
+  }, [page]);
+  const onClickButton = () => {
+    setPage((prevPage) => prevPage + 1);
+  };
 
   useEffect(() => {
     // if (title.length === 0) return;
@@ -53,5 +56,11 @@ export const useSearchMovie = ({ isSearchPage = false }) => {
     setSearchParams({ title: searchInput });
   };
 
-  return { movies, isLoader, onSetSearchTitle };
+  return {
+    movies,
+    isLoader,
+    onSetSearchTitle,
+    onClickButton,
+    showBtn,
+  };
 };

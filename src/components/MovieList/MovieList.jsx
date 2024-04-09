@@ -16,7 +16,11 @@ const MovieList = ({ movies }) => {
               <Link state={location} to={`/movies/${movie.id}`}>
                 <div className={css.wrap}>
                   <img
-                    src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+                    src={
+                      movie.poster_path !== null
+                        ? `https://image.tmdb.org/t/p/w500${movie.poster_path}`
+                        : "../../assets/noposter.png"
+                    }
                     alt={movie.title}
                     className={css.image}
                   />

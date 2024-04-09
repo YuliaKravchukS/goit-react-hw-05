@@ -3,12 +3,12 @@
   flex-direction: column;
   align-items: start;
   border-bottom: 1px solid gray;
-  height: 400px;
+  /* height: 400px; */
   overflow: hidden;
   gap: 15px;
   padding: 5px;
   margin-bottom: 10px;
-  height: 80vh;
+  min-height: 80vh;
 }
 
 .cardDetails {

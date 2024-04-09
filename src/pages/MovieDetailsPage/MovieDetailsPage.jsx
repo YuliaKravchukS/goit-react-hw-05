@@ -3,6 +3,7 @@ import { Link, useParams, useLocation, Outlet } from "react-router-dom";
 import {
   // requestMovieReviews,
   requestMoviesById,
+  requestMoviesVideos,
   // requestMoviesCast,
 } from "../../server/api";
 import Loader from "../../components/Loader/Loader";
@@ -15,6 +16,7 @@ const MovieDetailsPage = () => {
   const [movieDetails, setMovieDetails] = useState(null);
   //const [movieCast, setMovieCast] = useState(null);
   // const [movieReviews, setMovieReviews] = useState(null);
+  const [movieVideos, setMovieVideos] = useState(null);
   const location = useLocation();
   const backLink = useRef(location.state ?? "/");
 
@@ -67,6 +69,22 @@ const MovieDetailsPage = () => {
   //   fetchMovieReviews();
   // }, [movieId]);
 
+  useEffect(() => {
+    async function fetchMovieVideos() {
+      try {
+        setIsLoaderMoviePage(true);
+        const dataVideos = await requestMoviesVideos(movieId);
+        setMovieVideos(dataVideos.results);
+      } catch (error) {
+        console.log(error);
+      } finally {
+        setIsLoaderMoviePage(false);
+      }
+    }
+
+    fetchMovieVideos();
+  }, [movieId]);
+  const videoKey = movieVideos?.find(({ type }) => type === "Trailer")?.key;
   return (
     <div>
       <Link to={backLink.current}>Go back</Link>
@@ -149,8 +167,8 @@ const MovieDetailsPage = () => {
                         <img
                           src={`${urlImg}${productionCompanie.logo_path}`}
                           alt={productionCompanie.name}
-                          width="100"
-                          height="100"
+                          width="80"
+                          height="80"
                           style={{
                             backgroundColor: "rgba(139, 136, 136, 0.3)",
                           }}
@@ -160,12 +178,20 @@ const MovieDetailsPage = () => {
                   );
                 })}
               </span>
-              {movieDetails.homepage && (
+              {videoKey && (
                 <>
                   <p className={css.cardText}>
-                    <b>Homepage</b>
+                    <b>Trailer</b>
                   </p>
-                  <span>{movieDetails.homepage}</span>
+                  <div>
+                    <iframe
+                      // className="w-full h-full"
+                      title="YouTube Video"
+                      src={`https://www.youtube.com/embed/${videoKey}?autoplay=1&rel=0`}
+                      // allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                      allowFullScreen
+                    ></iframe>
+                  </div>
                 </>
               )}
             </div>

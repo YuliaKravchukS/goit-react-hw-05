@@ -5,14 +5,15 @@ const instance = axios.create({
   // search/ movie ? include_adult = false & language=en - US & page=1'
 });
 
-export const requestMoviesTrend = async () => {
+export const requestMoviesTrend = async (page) => {
   const { data } = await instance.get("/trending/movie/day?language=en-US", {
     params: {
+      page: page,
       accept: "application/json",
       api_key: "bb8b95351575529e9a24eb6d6f09af6f",
     },
   });
-  return data.results;
+  return data;
 };
 
 export const requestMoviesByTittle = async (title = "") => {
@@ -58,6 +59,20 @@ export const requestMoviesCast = async (movieId) => {
 export const requestMovieReviews = async (movieId) => {
   const { data } = await instance.get(
     `/movie/${movieId}/reviews?language=en-US`,
+    {
+      params: {
+        accept: "application/json",
+        api_key: "bb8b95351575529e9a24eb6d6f09af6f",
+      },
+    }
+  );
+
+  return data;
+};
+
+export const requestMoviesVideos = async (movieId) => {
+  const { data } = await instance.get(
+    `/movie/${movieId}/videos?language=en-US`,
     {
       params: {
         accept: "application/json",
